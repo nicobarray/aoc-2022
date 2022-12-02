@@ -1,0 +1,13 @@
+{
+  "name": "aoc-2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "repository": "git@github.com:nicobarray/aoc-2022.git",
+  "author": "Nicolas Barray <nbarray@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/entrypoint.js",
+    "start:save": "node src/entrypoint.js --save"
+  }
+}
