@@ -31,3 +31,26 @@ export async function part1(input) {
     })
     .reduce(sum, 0);
 }
+
+export async function part2(input) {
+  return input
+    .split("\n")
+    .reduce((groups, rucksack, index) => {
+      if (index % 3 === 0) {
+        return [[rucksack], ...groups];
+      }
+      const [last, ...others] = groups;
+      return [[...last, rucksack], ...others];
+    }, [])
+    .map((group) => {
+      const [one, two, three] = group;
+
+      for (let item of one) {
+        if (!two.includes(item) || !three.includes(item)) {
+          continue;
+        }
+        return priority(item);
+      }
+    })
+    .reduce(sum, 0);
+}
