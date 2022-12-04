@@ -10,3 +10,7 @@ part2 13433
 part1 7997
 part2 2545
 
+⭐️ Day 4 ⭐️
+part1 528
+part2 881
+

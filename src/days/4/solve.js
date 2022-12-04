@@ -39,3 +39,25 @@ export function part1(input) {
     .map((test) => (test ? 1 : 0))
     .reduce(sum, 0);
 }
+
+export function part2(input) {
+  return input
+    .split("\n")
+    .map((line) => line.split(","))
+    .map(([left, right]) => {
+      const [a, b] = left.split("-").map(Number);
+      const [c, d] = right.split("-").map(Number);
+
+      const inLeft = (n) => n >= a && n <= b;
+
+      for (let i = c; i <= d; i++) {
+        if (inLeft(i)) {
+          return true;
+        }
+      }
+
+      return false;
+    })
+    .map((test) => (test ? 1 : 0))
+    .reduce(sum, 0);
+}
