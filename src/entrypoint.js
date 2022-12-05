@@ -14,7 +14,7 @@ async function run() {
   const days = await fs.readdir(path.join(__dirname, "days"));
 
   for (let day of days.map(Number)) {
-    log(`⭐️ Day ${day} ⭐️`);
+    log(`## ⭐️ Day ${day} ⭐️`);
 
     const solver = path.resolve(
       path.join(__dirname, "days", String(day), "solve.js")
@@ -28,23 +28,28 @@ async function run() {
     const inputString = (await fs.readFile(input)).toString("utf-8");
     for (let [fnName, fn] of Object.entries(parts)) {
       const res = await fn(inputString);
-      log(fnName, res);
+      log("-", fnName, res);
     }
 
     log();
   }
 
   if (process.argv[2] === "--save") {
-    const solutionFile = path.resolve(
-      path.join(__dirname, "..", "solutions.md")
+    const headerFile = path.resolve(
+      path.join(__dirname, "..", "readme-header.md")
     );
+    const solutionFile = path.resolve(path.join(__dirname, "..", "readme.md"));
+
+    const headerBuffer = await fs.readFile(headerFile);
+
     await fs.copyFile(
       solutionFile,
       solutionFile + "." + Date.now() + ".backup"
     );
+
     await fs.writeFile(
-      path.resolve(path.join(__dirname, "..", "solutions.md")),
-      buffer
+      path.resolve(path.join(__dirname, "..", "readme.md")),
+      Buffer.concat([headerBuffer, Buffer.from("\n"), Buffer.from(buffer)])
     );
   }
 }

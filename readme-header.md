@@ -18,24 +18,3 @@ Once solved, run `yarn start:save` to save all results in solution.md
 `yarn start:save` solve all days and write output in solution.md
 
 # Solutions
-
-## ⭐️ Day 1 ⭐️
-- part1 68467
-- part2 203420
-
-## ⭐️ Day 2 ⭐️
-- part1 13484
-- part2 13433
-
-## ⭐️ Day 3 ⭐️
-- part1 7997
-- part2 2545
-
-## ⭐️ Day 4 ⭐️
-- part1 528
-- part2 881
-
-## ⭐️ Day 5 ⭐️
-- part1 CNSZFDVLJ
-- part2 QNDWLMGNS
-
