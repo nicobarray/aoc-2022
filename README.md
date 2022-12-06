@@ -39,3 +39,7 @@ Once solved, run `yarn start:save` to save all results in solution.md
 - part1 CNSZFDVLJ
 - part2 QNDWLMGNS
 
+## ⭐️ Day 6 ⭐️
+- part1 1356
+- part2 2564
+

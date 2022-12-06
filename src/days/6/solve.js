@@ -1,4 +1,4 @@
-export function part1(input) {
+function findMarker(input, packetLength) {
   return [...input].reduce(
     ([buffer, result], char, index) => {
       // The solution was fount.
@@ -9,12 +9,12 @@ export function part1(input) {
       buffer += char;
 
       // Initialize the buffer.
-      if (buffer.length < 4) {
+      if (buffer.length < packetLength) {
         return [buffer, -1];
       }
 
       // Find the solution.
-      if (new Set([...buffer]).size === 4) {
+      if (new Set([...buffer]).size === packetLength) {
         return [buffer, index + 1];
       }
 
@@ -24,4 +24,12 @@ export function part1(input) {
     },
     ["", -1]
   )[1];
+}
+
+export function part1(input) {
+  return findMarker(input, 4);
+}
+
+export function part2(input) {
+  return findMarker(input, 14);
 }
