@@ -4,6 +4,15 @@ import * as url from "url";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
+async function fileExists(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 async function run() {
   let buffer = "";
   const log = (...msg) => {
@@ -22,13 +31,23 @@ async function run() {
     const input = path.resolve(
       path.join(__dirname, "days", String(day), "input.txt")
     );
+    const example = path.resolve(
+      path.join(__dirname, "days", String(day), "example.txt")
+    );
 
     const parts = await import(solver);
 
     const inputString = (await fs.readFile(input)).toString("utf-8");
+    const exampleString = (await fileExists(example))
+      ? (await fs.readFile(example)).toString("utf-8")
+      : null;
     for (let [fnName, fn] of Object.entries(parts)) {
+      let exampleRes = undefined;
+      if (exampleString) {
+        exampleRes = await fn(exampleString);
+      }
       const res = await fn(inputString);
-      log("-", fnName, res);
+      log("-", fnName, res, exampleRes ? "(" + exampleRes + ")" : undefined);
     }
 
     log();

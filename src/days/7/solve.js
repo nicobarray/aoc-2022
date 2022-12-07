@@ -112,7 +112,7 @@ const makeFs = (output) => {
 export function part1(input) {
   const fs = makeFs(input.split("\n"));
 
-  ls(fs, "/");
+  // ls(fs, "/");
 
   return Object.keys(fs.dirs)
     .map((pwd) => {
@@ -121,4 +121,28 @@ export function part1(input) {
     })
     .filter((size) => size <= 100000)
     .reduce((a, b) => a + b);
+}
+
+export function part2(input) {
+  const fs = makeFs(input.split("\n"));
+
+  const usedSpace = getDirSize(fs, "/");
+  const softwareSpace = 30000000;
+  const sizeToFree = softwareSpace - (70000000 - usedSpace);
+
+  return Object.keys(fs.dirs)
+    .sort((a, b) => getDirSize(fs, a) - getDirSize(fs, b))
+    .reduce((result, dir) => {
+      if (result !== -1) {
+        return result;
+      }
+
+      const size = getDirSize(fs, dir);
+
+      if (size >= sizeToFree) {
+        return size;
+      }
+
+      return result;
+    }, -1);
 }

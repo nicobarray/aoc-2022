@@ -20,26 +20,30 @@ Once solved, run `yarn start:save` to save all results in solution.md
 # Solutions
 
 ## ⭐️ Day 1 ⭐️
-- part1 68467
-- part2 203420
+- part1 68467 
+- part2 203420 
 
 ## ⭐️ Day 2 ⭐️
-- part1 13484
-- part2 13433
+- part1 13484 
+- part2 13433 
 
 ## ⭐️ Day 3 ⭐️
-- part1 7997
-- part2 2545
+- part1 7997 
+- part2 2545 
 
 ## ⭐️ Day 4 ⭐️
-- part1 528
-- part2 881
+- part1 528 
+- part2 881 
 
 ## ⭐️ Day 5 ⭐️
-- part1 CNSZFDVLJ
-- part2 QNDWLMGNS
+- part1 CNSZFDVLJ 
+- part2 QNDWLMGNS 
 
 ## ⭐️ Day 6 ⭐️
-- part1 1356
-- part2 2564
+- part1 1356 
+- part2 2564 
+
+## ⭐️ Day 7 ⭐️
+- part1 1644735 (95437)
+- part2 1300850 (24933642)
 
