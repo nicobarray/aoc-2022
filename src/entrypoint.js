@@ -37,7 +37,9 @@ async function run() {
 
     const parts = await import(solver);
 
-    const inputString = (await fs.readFile(input)).toString("utf-8");
+    const inputString = (await fileExists(input))
+      ? (await fs.readFile(input)).toString("utf-8")
+      : null;
     const exampleString = (await fileExists(example))
       ? (await fs.readFile(example)).toString("utf-8")
       : null;
@@ -46,8 +48,16 @@ async function run() {
       if (exampleString) {
         exampleRes = await fn(exampleString);
       }
-      const res = await fn(inputString);
-      log("-", fnName, res, exampleRes ? "(" + exampleRes + ")" : undefined);
+      let res = undefined;
+      if (inputString) {
+        res = await fn(inputString);
+      }
+      log(
+        "-",
+        fnName,
+        res ? res : undefined,
+        exampleRes ? "(" + exampleRes + ")" : undefined
+      );
     }
 
     log();
