@@ -47,3 +47,7 @@ Once solved, run `yarn start:save` to save all results in solution.md
 - part1 1644735 (95437)
 - part2 1300850 (24933642)
 
+## ⭐️ Day 8 ⭐️
+- part1 1560 (21)
+- part2 252000 (8)
+
