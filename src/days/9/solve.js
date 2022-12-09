@@ -88,30 +88,66 @@ export function part1(input) {
     }
   );
 
-  let minX = 0,
-    minY = 0,
-    maxX = 0,
-    maxY = 0;
+  return [...data.marked].length;
+}
 
-  for (let p of data.marked) {
-    const [x, y] = p.split("_").map(Number);
+function follow(target, follower) {
+  // diagonal
+  if (target[0] !== follower[0] && target[1] !== follower[1]) {
+    const dx = target[0] - follower[0] > 0 ? 1 : -1;
+    const dy = target[1] - follower[1] > 0 ? 1 : -1;
+    return addVect(follower, [dx, dy]);
 
-    if (!minX || x < minX) {
-      minX = x;
-    }
-    if (!minY || y < minY) {
-      minY = y;
-    }
-    if (!maxX || x > maxX) {
-      maxX = x;
-    }
-    if (!maxY || y > maxY) {
-      maxY = y;
-    }
+    // horizontal
+  } else if (target[0] !== follower[0]) {
+    const headLeftOfTail = target[0] < follower[0];
+    const dir_ = headLeftOfTail ? moveToVect("L") : moveToVect("R");
+
+    return addVect(follower, dir_);
+
+    // vertical
+  } else {
+    const headUpOfTail = target[1] > follower[1];
+    const dir_ = headUpOfTail ? moveToVect("U") : moveToVect("D");
+    return addVect(follower, dir_);
   }
+}
 
-  // 5873 is not enougth
-  print(data.head, data.tail, data.marked, maxX - minX, maxY - minY);
+export function part2(input) {
+  const data = input.split("\n").reduce(
+    (data, move) => {
+      let [dir, count] = move.split(" ");
+      let dirVect = moveToVect(dir);
+
+      for (let i = 0; i < Number(count); i++) {
+        data.head = addVect(data.head, dirVect);
+
+        if (isAdj(data.head, data.tails[0])) {
+          data.marked.add(data.tails[data.tails.length - 1].join("_"), true);
+          continue;
+        }
+
+        data.tails[0] = follow(data.head, data.tails[0]);
+
+        for (let j = 1; j < data.tails.length; j++) {
+          if (isAdj(data.tails[j - 1], data.tails[j])) {
+            continue;
+          }
+
+          data.tails[j] = follow(data.tails[j - 1], data.tails[j]);
+        }
+
+        data.marked.add(data.tails[data.tails.length - 1].join("_"), true);
+      }
+
+      return data;
+    },
+    {
+      head: [0, 0],
+      tails: range(9).map((_) => [0, 0]),
+      marked: new Set(),
+    }
+  );
 
   return [...data.marked].length;
 }
