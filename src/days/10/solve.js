@@ -50,18 +50,19 @@ export function part2(input) {
     }
   });
 
+  let outputBuffer = "\n\n```\n";
   console.log();
 
   let line = "";
   for (let i = 0; i < crt.buffer.length; i++) {
     if (i > 0 && i % crt.width === 0) {
-      console.log("| " + line);
+      outputBuffer += line + "\n";
       line = "";
     }
 
     line += crt.buffer[i];
   }
-  console.log("| " + line);
+  outputBuffer += line + "\n```";
 
-  return 42;
+  return outputBuffer;
 }

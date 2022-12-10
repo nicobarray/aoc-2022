@@ -23,7 +23,7 @@ async function run() {
   const days = await fs.readdir(path.join(__dirname, "days"));
 
   for (let day of days.map(Number).sort((a, b) => a - b)) {
-    log(`## ⭐️ Day ${day} ⭐️`);
+    log(`\n## ⭐️ Day ${day} ⭐️`);
 
     const solver = path.resolve(
       path.join(__dirname, "days", String(day), "solve.js")
@@ -53,10 +53,12 @@ async function run() {
         res = await fn(inputString);
       }
       log(
-        "-",
+        "\n###",
         fnName,
-        res ? res : undefined,
-        exampleRes ? "(" + exampleRes + ")" : undefined
+        "\n\n",
+        res ? "Result:  " + res : undefined,
+        "\n\n",
+        exampleRes ? "Example: " + exampleRes : undefined
       );
     }
 
