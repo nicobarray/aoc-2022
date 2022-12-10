@@ -22,7 +22,7 @@ async function run() {
 
   const days = await fs.readdir(path.join(__dirname, "days"));
 
-  for (let day of days.map(Number)) {
+  for (let day of days.map(Number).sort((a, b) => a - b)) {
     log(`## ⭐️ Day ${day} ⭐️`);
 
     const solver = path.resolve(
