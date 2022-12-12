@@ -109,7 +109,7 @@ function aStar(grid, start, options = {}) {
           }
 
           if (state.closedList.some((a) => isEqual(a, [x, y]))) {
-            return chalk.red("#");
+            return chalk.green("#");
           }
 
           if (state.openList.some((e) => isEqual(e, [x, y]))) {
@@ -252,11 +252,9 @@ export async function part2(input) {
   });
 
   let min = 9999;
-  let minSpeed = 2000;
   let i = 0;
   for (let start of startPos) {
     i++;
-    let skip = false;
     console.log(
       String(i).padStart(String(startPos.length).length),
       "/",
@@ -265,31 +263,12 @@ export async function part2(input) {
       start.map((p) => String(p).padStart(3)),
       "(min=",
       min,
-      "|",
-      minSpeed,
       ")"
     );
 
-    let handle =
-      minSpeed > 0
-        ? setTimeout(() => {
-            console.log("Took more than", minSpeed, "ms !");
-            skip = true;
-          }, minSpeed)
-        : null;
-    let begin = new Date();
     const pathLength = aStar(grid, start, {
-      cancel() {
-        return skip;
-      },
+      video: true,
     });
-    clearTimeout(handle);
-    let end = new Date() - begin;
-
-    if (end < minSpeed) {
-      minSpeed = end;
-    }
-
     if (pathLength < min) {
       min = pathLength;
     }

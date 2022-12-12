@@ -26,13 +26,13 @@ Once solved, run `yarn start:save` to save all results in solution.md
 
  Result:  68467 
 
- 
+ Example: 24000
 
 ### part2 
 
  Result:  203420 
 
- 
+ Example: 45000
 
 
 ## ⭐️ Day 2 ⭐️
@@ -41,13 +41,13 @@ Once solved, run `yarn start:save` to save all results in solution.md
 
  Result:  13484 
 
- 
+ Example: 15
 
 ### part2 
 
  Result:  13433 
 
- 
+ Example: 12
 
 
 ## ⭐️ Day 3 ⭐️
@@ -56,13 +56,13 @@ Once solved, run `yarn start:save` to save all results in solution.md
 
  Result:  7997 
 
- 
+ Example: 157
 
 ### part2 
 
  Result:  2545 
 
- 
+ Example: 70
 
 
 ## ⭐️ Day 4 ⭐️
@@ -71,13 +71,13 @@ Once solved, run `yarn start:save` to save all results in solution.md
 
  Result:  528 
 
- 
+ Example: 2
 
 ### part2 
 
  Result:  881 
 
- 
+ Example: 4
 
 
 ## ⭐️ Day 5 ⭐️
@@ -86,13 +86,13 @@ Once solved, run `yarn start:save` to save all results in solution.md
 
  Result:  CNSZFDVLJ 
 
- 
+ Example: CMZ
 
 ### part2 
 
  Result:  QNDWLMGNS 
 
- 
+ Example: MCD
 
 
 ## ⭐️ Day 6 ⭐️
@@ -101,13 +101,13 @@ Once solved, run `yarn start:save` to save all results in solution.md
 
  Result:  1356 
 
- 
+ Example: 7
 
 ### part2 
 
  Result:  2564 
 
- 
+ Example: 19
 
 
 ## ⭐️ Day 7 ⭐️
@@ -186,4 +186,34 @@ Once solved, run `yarn start:save` to save all results in solution.md
 ######......######......######......####
 #######.......#######.......#######.....
 ```
+
+
+## ⭐️ Day 11 ⭐️
+
+### part1 
+
+ Result:  66124 
+
+ Example: 10605
+
+### part2 
+
+ Result:  30019547326 
+
+ Example: 2501150060
+
+
+## ⭐️ Day 12 ⭐️
+
+### part1 
+
+ Result:  350 
+
+ Example: 31
+
+### part2 
+
+ Result:  349 
+
+ Example: 29
 
