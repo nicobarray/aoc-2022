@@ -58,11 +58,9 @@ const printGrid = (grid, mapper) => {
   return buffer;
 };
 
-export function part1(input) {
-  const grid = makeGrid(input);
-
+function aStar(grid, start, options = {}) {
   const state = {
-    grid: makeGrid(input),
+    grid,
     closedList: [],
     openList: [],
     current: [],
@@ -73,13 +71,7 @@ export function part1(input) {
     path: [],
   };
 
-  state.start = state.grid.reduce((start, row, j) => {
-    const i = row.findIndex((el) => el === "S");
-    if (i !== -1) {
-      return [i, j];
-    }
-    return start;
-  }, null);
+  state.start = start;
 
   state.openList = [state.start];
 
@@ -99,11 +91,17 @@ export function part1(input) {
 
   let i = 0;
   while (state.openList.length > 0) {
+    if (options?.cancel && options.cancel()) {
+      console.log("skip");
+      return 9999;
+    }
+
     i++;
 
     dequeueMin(state);
 
-    if (i % 10 === 0) {
+    if (options?.video && i % 10 === 0) {
+      console.clear();
       console.log(
         printGrid(state.grid, (value, x, y) => {
           if (isEqual(state.current, [x, y])) {
@@ -121,8 +119,7 @@ export function part1(input) {
           return chalk.grey(value);
         })
       );
-
-      // execSync("sleep .01");
+      execSync("sleep .01");
     }
 
     const elevation = getElevation(state.grid, state.current);
@@ -170,7 +167,12 @@ export function part1(input) {
   }
 
   let sentry = state.end;
+
   while (!isEqual(sentry, state.start)) {
+    if (!state.parent[sentry.join("_")]) {
+      return 9999;
+    }
+
     state.path.push(sentry.join("_"));
     sentry = state.parent[sentry.join("_")].split("_").map(Number);
   }
@@ -192,30 +194,106 @@ export function part1(input) {
     return "?";
   }
 
-  console.log(
-    printGrid(state.grid, (value, x, y) => {
-      if (value === "E") {
-        return value;
-      }
+  if (options.video) {
+    console.clear();
+    console.log(
+      printGrid(state.grid, (value, x, y) => {
+        if (value === "E") {
+          return value;
+        }
 
-      if (value === "S") {
-        return chalk.yellow("S");
-      }
+        if (value === "S") {
+          return chalk.yellow("S");
+        }
 
-      const key = x + "_" + y;
-      const pathIndex = state.path.indexOf(key);
+        const key = x + "_" + y;
+        const pathIndex = state.path.indexOf(key);
 
-      if (pathIndex !== -1) {
-        const [prev, next] = state.path
-          .slice(pathIndex, pathIndex + 2)
-          .map((p) => p.split("_").map(Number));
+        if (pathIndex !== -1) {
+          const [prev, next] = state.path
+            .slice(pathIndex, pathIndex + 2)
+            .map((p) => p.split("_").map(Number));
 
-        return chalk.green(formatDirection(next, prev));
-      }
+          return chalk.green(formatDirection(next, prev));
+        }
 
-      return chalk.grey(".");
-    })
-  );
+        return chalk.grey(".");
+      })
+    );
+  }
 
   return state.path.length;
+}
+
+export function part1(input) {
+  const grid = makeGrid(input);
+
+  const start = grid.reduce((start, row, j) => {
+    const i = row.findIndex((el) => el === "S");
+    if (i !== -1) {
+      return [i, j];
+    }
+    return start;
+  }, null);
+
+  const res = aStar(grid, start);
+
+  return res;
+}
+
+export async function part2(input) {
+  const grid = makeGrid(input);
+
+  const startPos = [];
+  printGrid(grid, (value, x, y) => {
+    if (value === "S" || value === "a") {
+      startPos.push([x, y]);
+    }
+  });
+
+  let min = 9999;
+  let minSpeed = 2000;
+  let i = 0;
+  for (let start of startPos) {
+    i++;
+    let skip = false;
+    console.log(
+      String(i).padStart(String(startPos.length).length),
+      "/",
+      startPos.length,
+      "Checking",
+      start.map((p) => String(p).padStart(3)),
+      "(min=",
+      min,
+      "|",
+      minSpeed,
+      ")"
+    );
+
+    let handle =
+      minSpeed > 0
+        ? setTimeout(() => {
+            console.log("Took more than", minSpeed, "ms !");
+            skip = true;
+          }, minSpeed)
+        : null;
+    let begin = new Date();
+    const pathLength = aStar(grid, start, {
+      cancel() {
+        return skip;
+      },
+    });
+    clearTimeout(handle);
+    let end = new Date() - begin;
+
+    if (end < minSpeed) {
+      minSpeed = end;
+    }
+
+    if (pathLength < min) {
+      min = pathLength;
+    }
+  }
+
+  return min;
 }
