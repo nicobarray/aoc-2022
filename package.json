@@ -9,5 +9,8 @@
   "scripts": {
     "start": "node src/entrypoint.js",
     "start:save": "node src/entrypoint.js --save"
+  },
+  "dependencies": {
+    "chalk": "^5.2.0"
   }
 }
