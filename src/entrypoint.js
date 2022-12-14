@@ -14,6 +14,13 @@ async function fileExists(path) {
 }
 
 async function run() {
+  const day = Number(process.argv[2]);
+
+  if (Number.isNaN(day)) {
+    console.log("$ aoc [day]");
+    process.exit(1);
+  }
+
   let buffer = "";
   const log = (...msg) => {
     console.log(msg.join(" "));
@@ -22,13 +29,8 @@ async function run() {
 
   let days = (await fs.readdir(path.join(__dirname, "days")))
     .map(Number)
-    .sort((a, b) => a - b);
-
-  if (process.argv[2].startsWith("--day=")) {
-    days = days.filter(
-      (day) => day === Number(process.argv[2].substring("--day=".length))
-    );
-  }
+    .sort((a, b) => a - b)
+    .filter((d) => d === day);
 
   for (let day of days.map(Number).sort((a, b) => a - b)) {
     log(`\n## ⭐️ Day ${day} ⭐️`);
@@ -71,25 +73,6 @@ async function run() {
     }
 
     log();
-  }
-
-  if (process.argv[2] === "--save") {
-    const headerFile = path.resolve(
-      path.join(__dirname, "..", "readme-header.md")
-    );
-    const solutionFile = path.resolve(path.join(__dirname, "..", "readme.md"));
-
-    const headerBuffer = await fs.readFile(headerFile);
-
-    await fs.copyFile(
-      solutionFile,
-      solutionFile + "." + Date.now() + ".backup"
-    );
-
-    await fs.writeFile(
-      path.resolve(path.join(__dirname, "..", "readme.md")),
-      Buffer.concat([headerBuffer, Buffer.from("\n"), Buffer.from(buffer)])
-    );
   }
 }
 

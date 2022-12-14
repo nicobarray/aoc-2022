@@ -7,8 +7,7 @@
   "author": "Nicolas Barray <nbarray@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node src/entrypoint.js",
-    "start:save": "node src/entrypoint.js --save"
+    "aoc": "node src/entrypoint.js"
   },
   "dependencies": {
     "chalk": "^5.2.0"
