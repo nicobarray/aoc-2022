@@ -212,3 +212,9 @@ Example: 29
 Result: 5852
 
 Example: 13
+
+### part2
+
+Result: 24190
+
+Example: 140

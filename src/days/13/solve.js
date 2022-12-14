@@ -182,3 +182,22 @@ export async function part1(input) {
     return sum;
   }, 0);
 }
+
+export function part2(input) {
+  return [...input.split("\n"), "[[2]]", "[[6]]"]
+    .filter(Boolean)
+    .flatMap((line) => parseInput({ tokens: lexInput(line) }))
+    .sort((a, b) => {
+      try {
+        checkValidSignal(a, b);
+      } catch (result) {
+        return result ? -1 : 1;
+      }
+    })
+    .reduce((mult, signal, index) => {
+      if (["[[2]]", "[[6]]"].includes(JSON.stringify(signal))) {
+        return (mult *= index + 1);
+      }
+      return mult;
+    }, 1);
+}
