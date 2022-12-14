@@ -159,7 +159,7 @@ function logActivity(round, monkeys, monkeysActivity) {
   logger.info();
 }
 
-export function part2(input) {
+export function _part2(input) {
   const monkeys = makeState(input);
   const monkeysActivity = Object.keys(monkeys).map((id) => ({ [id]: 0 }));
 

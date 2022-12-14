@@ -20,7 +20,15 @@ async function run() {
     buffer += msg.join(" ") + "\n";
   };
 
-  const days = await fs.readdir(path.join(__dirname, "days"));
+  let days = (await fs.readdir(path.join(__dirname, "days")))
+    .map(Number)
+    .sort((a, b) => a - b);
+
+  if (process.argv[2].startsWith("--day=")) {
+    days = days.filter(
+      (day) => day === Number(process.argv[2].substring("--day=".length))
+    );
+  }
 
   for (let day of days.map(Number).sort((a, b) => a - b)) {
     log(`\n## ⭐️ Day ${day} ⭐️`);

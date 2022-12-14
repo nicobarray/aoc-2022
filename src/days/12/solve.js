@@ -10,9 +10,6 @@ const enqueue = (state, value) => {
 };
 
 const mag = (a, b) => {
-  // var d1 = Math.abs(b[0] - a[0]);
-  // var d2 = Math.abs(b[1] - a[1]);
-  // return d1 + d2;
   return Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2));
 };
 
